@@ -1,3 +1,7 @@
+"use client";
+
+import { useRef, useEffect, useState } from "react";
+
 const jobs = [
   {
     company: "Hewlett Packard Enterprise",
@@ -6,38 +10,38 @@ const jobs = [
     period: "Jan 2023 - Dec 2025",
     projects: [
       {
-        name: "HPE Private Cloud AI - NVIDIA AI Computing by HPE",
+        name: "HPE Private Cloud AI - NVIDIA AI Computing",
         period: "2024-2025",
         highlights: [
-          "Designed multi-agent Plan-and-Execute architecture using LangGraph, reducing infinite loop failures by 35% through state-machine transitions.",
-          "Architected an MCP server layer to standardize tool integration across multi-agent workflows, reducing custom tool-binding code by 60%.",
-          "Reduced production inference costs by 45% on NVIDIA NIM microservices via a Router Agent dynamically triaging between Llama 2 7B and GPT-4.",
-          "Implemented HITL checkpoint system for high-stakes financial workflows with 0.85 confidence threshold.",
-          "Built real-time observability dashboards using LangSmith and Arize Phoenix, resolving 10s+ latency bottlenecks.",
-          "Architected LLM evaluation framework using DeepEval and LLM-as-a-Judge across 5,000+ test cases.",
-          "Reduced LLM inference costs by 52% and p95 latency by 300ms through semantic caching with Redis.",
+          "Designed multi-agent Plan-and-Execute architecture using LangGraph, reducing infinite loop failures by 35%.",
+          "Architected MCP server layer standardizing tool integration, reducing custom tool-binding code by 60%.",
+          "Reduced inference costs by 45% via Router Agent dynamically triaging between Llama 2 7B and GPT-4.",
+          "Implemented HITL checkpoint system for financial workflows with 0.85 confidence threshold.",
+          "Built observability dashboards using LangSmith and Arize Phoenix, resolving 10s+ latency bottlenecks.",
+          "Architected LLM evaluation framework using DeepEval across 5,000+ test cases.",
+          "Reduced costs by 52% and p95 latency by 300ms through semantic caching with Redis.",
         ],
       },
       {
         name: "HPE Ezmeral Unified Analytics & Data Fabric",
         period: "2023-2024",
         highlights: [
-          "Eliminated catastrophic forgetting in Llama 2 by mixing 15% pre-training replay data with proprietary instruction sets.",
-          "Reduced training VRAM by 65% using QLoRA 4-bit quantization, enabling 70B parameter model fine-tuning.",
-          "Improved inference throughput by 4x via multi-LoRA serving framework (vLLM/LoRAX) for 10+ specialized adapters.",
-          "Architected multi-region Kafka deployment with sub-second cross-region replication latency.",
-          "Engineered tiered memory system (Redis + Postgres) preserving intent across 20+ agent handoffs.",
+          "Eliminated catastrophic forgetting in Llama 2 by mixing 15% pre-training replay data.",
+          "Reduced training VRAM by 65% using QLoRA 4-bit quantization for 70B parameter models.",
+          "Improved inference throughput 4x via multi-LoRA serving (vLLM/LoRAX) for 10+ adapters.",
+          "Architected multi-region Kafka with sub-second cross-region replication.",
+          "Engineered tiered memory system preserving intent across 20+ agent handoffs.",
         ],
       },
       {
-        name: "HPE GreenLake Cloud Platform & OpsRamp AIOps",
+        name: "HPE GreenLake Cloud & OpsRamp AIOps",
         period: "2023-2025",
         highlights: [
-          "Led migration from monolithic Django to Microservices architecture using Docker and Kubernetes.",
-          "Engineered high-concurrency event-driven architecture using FastAPI handling 10k+ concurrent WebSocket connections.",
-          "Built MCP-compliant tool registry for OpsRamp AIOps copilot enabling dynamic tool discovery at runtime.",
-          "Architected Self-Correction loop for SQL-generating agent, reducing syntax errors by 50%.",
-          "Built NER pipeline with Keras Bi-LSTM in spaCy v3.x, achieving 25% F1-score improvement.",
+          "Led migration from monolithic Django to Microservices with Docker and Kubernetes.",
+          "Built high-concurrency FastAPI architecture handling 10k+ concurrent WebSocket connections.",
+          "Built MCP-compliant tool registry enabling dynamic tool discovery at runtime.",
+          "Architected Self-Correction loop for SQL agent, reducing syntax errors by 50%.",
+          "Built NER pipeline with Keras Bi-LSTM achieving 25% F1-score improvement.",
         ],
       },
     ],
@@ -52,10 +56,10 @@ const jobs = [
         name: "Adobe Experience Platform Pipeline & Data Lake",
         period: "2019-2022",
         highlights: [
-          "Architected high-throughput ETL pipeline processing 5TB+ of multi-modal data using Spark.",
-          "Eliminated vector-relational desynchronization via CDC workflow (Debezium + Kafka) with 99.9% consistency.",
-          "Engineered Blue-Green re-indexing for zero-downtime embedding migrations across 50M+ vectors.",
-          "Optimized semantic search retrieval by 40% via hierarchical document indexing and semantic overlap.",
+          "Architected ETL pipeline processing 5TB+ multi-modal data using Spark.",
+          "Eliminated vector-relational desync via CDC (Debezium + Kafka) with 99.9% consistency.",
+          "Engineered Blue-Green re-indexing for zero-downtime migrations across 50M+ vectors.",
+          "Optimized semantic search by 40% via hierarchical document indexing.",
           "Reduced vector storage costs by $8k/month through tiered data strategy.",
         ],
       },
@@ -63,71 +67,93 @@ const jobs = [
         name: "Adobe Sensei ML Framework & Content Intelligence",
         period: "2020-2023",
         highlights: [
-          "Deployed automated Semantic Data Guard monitoring data drift with 15% deviation alerting.",
-          "Standardized AI Data Contracts across four engineering teams enforcing GDPR/CCPA compliance.",
-          "Reduced inference latency by 65% via model distillation and FP16 serving on NVIDIA A100 GPUs.",
-          "Built synthetic data generation engine using SDV and GPT-3.5, improving minority-class tasks by 18%.",
-          "Engineered Fail-Soft orchestration layer saving $15k/month in compute costs.",
+          "Deployed Semantic Data Guard monitoring data drift with 15% deviation alerting.",
+          "Standardized AI Data Contracts across four teams enforcing GDPR/CCPA compliance.",
+          "Reduced inference latency by 65% via model distillation on NVIDIA A100 GPUs.",
+          "Built synthetic data engine using SDV and GPT-3.5, improving minority tasks by 18%.",
+          "Engineered Fail-Soft orchestration saving $15k/month in compute costs.",
         ],
       },
     ],
   },
 ];
 
+function useInView(ref: React.RefObject<HTMLElement | null>) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.05 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [ref]);
+  return visible;
+}
+
+function JobCard({ job, index }: { job: typeof jobs[number]; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const visible = useInView(ref);
+
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+      }`}
+      style={{ transitionDelay: `${index * 150}ms` }}
+    >
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+        <div>
+          <h3 className="text-2xl md:text-3xl font-bold text-white">{job.company}</h3>
+          <p className="gradient-text font-semibold mt-1">{job.role}</p>
+          <p className="text-sm text-gray-500 mt-1">{job.location}</p>
+        </div>
+        <span className="text-sm text-gray-500 mt-2 md:mt-0 font-mono bg-white/5 px-3 py-1 rounded-lg">
+          {job.period}
+        </span>
+      </div>
+
+      <div className="space-y-6 border-l border-[var(--color-surface-lighter)] pl-6 ml-3">
+        {job.projects.map((proj) => (
+          <div key={proj.name} className="glass-card rounded-xl p-5">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
+              <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] -ml-[2.05rem] shrink-0 shadow-lg shadow-[var(--color-primary)]/30" />
+              <h4 className="text-base font-semibold text-white">{proj.name}</h4>
+              <span className="text-xs text-gray-500 font-mono">{proj.period}</span>
+            </div>
+            <ul className="space-y-2">
+              {proj.highlights.map((h, i) => (
+                <li key={i} className="text-sm text-gray-400 leading-relaxed flex gap-2">
+                  <span className="text-[var(--color-accent)] shrink-0 mt-1">&#9656;</span>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Experience() {
   return (
-    <section id="experience" className="py-24 px-6 bg-[var(--color-surface-light)]/30">
+    <section id="experience" className="py-28 px-6 section-glow">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-16">
-          Experience
-        </h2>
-        <div className="space-y-16">
-          {jobs.map((job) => (
-            <div key={job.company}>
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                <div>
-                  <h3 className="text-2xl font-bold text-white">
-                    {job.company}
-                  </h3>
-                  <p className="text-[var(--color-primary)] font-medium">
-                    {job.role}
-                  </p>
-                  <p className="text-sm text-slate-500">{job.location}</p>
-                </div>
-                <span className="text-sm text-slate-500 mt-2 md:mt-0 font-mono">
-                  {job.period}
-                </span>
-              </div>
-
-              <div className="space-y-8 border-l-2 border-[var(--color-surface-lighter)] pl-6 ml-2">
-                {job.projects.map((proj) => (
-                  <div key={proj.name}>
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-3 h-3 rounded-full bg-[var(--color-primary)] -ml-[1.9rem] shrink-0" />
-                      <h4 className="text-lg font-semibold text-white">
-                        {proj.name}
-                      </h4>
-                      <span className="text-xs text-slate-500 font-mono">
-                        {proj.period}
-                      </span>
-                    </div>
-                    <ul className="space-y-2">
-                      {proj.highlights.map((h, i) => (
-                        <li
-                          key={i}
-                          className="text-sm text-slate-400 leading-relaxed pl-1"
-                        >
-                          <span className="text-[var(--color-primary)] mr-2">
-                            &rarr;
-                          </span>
-                          {h}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
+        <div className="text-center mb-16">
+          <p className="text-[var(--color-accent)] font-mono text-sm tracking-widest uppercase mb-3">
+            Where I&apos;ve Worked
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white">
+            Experience
+          </h2>
+        </div>
+        <div className="space-y-20">
+          {jobs.map((job, i) => (
+            <JobCard key={job.company} job={job} index={i} />
           ))}
         </div>
       </div>
