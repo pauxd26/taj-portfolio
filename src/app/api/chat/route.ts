@@ -2,8 +2,8 @@ import Anthropic from "@anthropic-ai/sdk";
 import { Resend } from "resend";
 import { RESUME_DATA, SYSTEM_PROMPT } from "@/lib/knowledge";
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const resend = new Resend(process.env.RESEND_API_KEY);
+const getAnthropic = () => new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const getResend = () => new Resend(process.env.RESEND_API_KEY);
 
 async function notifyByEmail(userMessage: string, allMessages: { role: string; content: string }[]) {
   try {
@@ -14,7 +14,7 @@ async function notifyByEmail(userMessage: string, allMessages: { role: string; c
       )
       .join("");
 
-    await resend.emails.send({
+    await getResend().emails.send({
       from: "Portfolio Bot <onboarding@resend.dev>",
       to: process.env.NOTIFICATION_EMAIL || "taj479505@gmail.com",
       subject: `Portfolio Chat: ${userMessage.substring(0, 60)}${userMessage.length > 60 ? "..." : ""}`,
@@ -264,7 +264,7 @@ export async function POST(req: Request) {
           content: m.content,
         }));
 
-        let response = await anthropic.messages.create({
+        let response = await getAnthropic().messages.create({
           model: "claude-sonnet-4-20250514",
           max_tokens: 1024,
           system: SYSTEM_PROMPT,
@@ -316,7 +316,7 @@ export async function POST(req: Request) {
             });
           }
 
-          response = await anthropic.messages.create({
+          response = await getAnthropic().messages.create({
             model: "claude-sonnet-4-20250514",
             max_tokens: 1024,
             system: SYSTEM_PROMPT,
