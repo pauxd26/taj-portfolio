@@ -1,4 +1,3 @@
-import Image from "next/image";
 import ParticleNetwork from "./ParticleNetwork";
 
 export default function Hero() {
@@ -15,21 +14,6 @@ export default function Hero() {
       <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-[var(--color-accent)]/5 rounded-full blur-3xl" />
 
       <div className="max-w-5xl mx-auto text-center relative z-10">
-        {/* Profile image with glow ring */}
-        <div className="mb-10 animate-fade-in-up opacity-0">
-          <div className="relative inline-block">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] blur-xl opacity-20 scale-110" />
-            <Image
-              src="/profile.png"
-              alt="Taj Khunkhun"
-              width={180}
-              height={180}
-              className="rounded-full relative border-2 border-white/10 shadow-2xl"
-              priority
-            />
-          </div>
-        </div>
-
         <p className="text-[var(--color-accent)] font-mono text-sm tracking-widest uppercase mb-6 animate-fade-in-up opacity-0 animate-delay-100">
           Senior AI Engineer
         </p>
