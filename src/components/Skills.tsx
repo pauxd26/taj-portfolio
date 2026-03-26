@@ -9,7 +9,7 @@ const categories = [
     span: "md:col-span-2",
     skills: [
       "LangChain", "LangGraph", "CrewAI", "AutoGen", "AutoGPT",
-      "MCP", "Agentic RAG", "LangSmith", "Multi-Agent Orchestration",
+      "MCP", "Agentic RAG", "GraphRAG", "LangSmith", "Multi-Agent Orchestration",
       "Prompt Engineering",
     ],
   },
@@ -29,7 +29,7 @@ const categories = [
     span: "",
     skills: [
       "Python", "Golang", "TypeScript", "JavaScript", "Django",
-      "FastAPI", "Flask", "Node.js", "React", "Angular",
+      "FastAPI", "Flask", "Node.js", "Next.js", "React", "Angular",
     ],
   },
   {
@@ -39,6 +39,7 @@ const categories = [
     skills: [
       "Snowflake", "Databricks", "Spark", "Kafka", "Airflow",
       "BigQuery", "Neo4j", "Redis", "Pinecone", "Elasticsearch",
+      "ChromaDB", "PostgreSQL",
     ],
   },
   {

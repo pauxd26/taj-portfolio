@@ -4,11 +4,21 @@ import { useRef, useEffect, useState } from "react";
 
 const projects = [
   {
+    title: "Lextar AI - Governance-Grade Legal Reasoning Platform",
+    period: "2026 - Present",
+    description:
+      "Full-stack legal AI SaaS platform with hybrid GraphRAG retrieval (1,300+ node knowledge graph + vector search), 11-step structured legal reasoning pipeline, multi-tenant RBAC, real-time streaming analysis workspace, and governance-grade output verification for Canadian and US immigration law.",
+    tags: ["FastAPI", "Next.js", "PostgreSQL", "ChromaDB", "DeepSeek", "GraphRAG", "Clerk", "Stripe", "SSE"],
+    url: "https://www.lextarai.com/",
+    color: "from-amber-500/20 to-yellow-500/20",
+  },
+  {
     title: "HPE Private Cloud AI & NVIDIA AI Computing",
     period: "2024 - 2025",
     description:
       "Multi-agent Plan-and-Execute architectures, Router Agents, MCP server integrations, HITL checkpoints, semantic caching, shadow deployment pipelines, and LLM evaluation frameworks for HPE's enterprise AI platform.",
     tags: ["LangGraph", "MCP", "NVIDIA NIM", "RAG", "Multi-Agent", "LangSmith", "DeepEval", "GPT-4", "Llama 2"],
+    url: "https://www.hpe.com/us/en/private-cloud-ai.html",
     color: "from-indigo-500/20 to-cyan-500/20",
   },
   {
@@ -17,6 +27,7 @@ const projects = [
     description:
       "Fine-tuned LLMs with QLoRA on GPU clusters, multi-region Kafka replication, NER pipelines, multi-agent memory systems, and multi-LoRA inference serving across Kubernetes-based ML platform.",
     tags: ["Spark", "Kafka", "Kubernetes", "spaCy", "Keras", "Bi-LSTM", "PyTorch", "QLoRA", "vLLM"],
+    url: "https://developer.hpe.com/platform/hpe-ezmeral/home/",
     color: "from-purple-500/20 to-pink-500/20",
   },
   {
@@ -25,6 +36,7 @@ const projects = [
     description:
       "Migrated monolithic services to microservices, high-concurrency event-driven APIs, MCP-compliant tool registries, SQL-generating agents, and GIL/integration bottleneck resolution.",
     tags: ["Django", "FastAPI", "Docker", "Kubernetes", "MCP", "Agentic AI", "Celery", "Redis"],
+    url: "https://www.hpe.com/us/en/greenlake.html",
     color: "from-emerald-500/20 to-teal-500/20",
   },
   {
@@ -33,6 +45,7 @@ const projects = [
     description:
       "High-throughput ETL/search pipelines, CDC-based vector sync, embedding drift management, synthetic data generation, inference optimization, and A/B testing frameworks.",
     tags: ["Spark", "Kafka", "Debezium", "Pinecone", "Elasticsearch", "Grafana", "GPT-3.5", "NVIDIA A100"],
+    url: "https://experience.adobe.com/",
     color: "from-red-500/20 to-orange-500/20",
   },
 ];
@@ -82,7 +95,14 @@ export default function Projects() {
 
               <div className="relative">
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-lg font-semibold text-white pr-4">{p.title}</h3>
+                  {p.url ? (
+                    <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-white pr-4 hover:text-[var(--color-primary)] transition-colors flex items-center gap-1.5">
+                      {p.title}
+                      <svg className="w-3.5 h-3.5 opacity-50 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                    </a>
+                  ) : (
+                    <h3 className="text-lg font-semibold text-white pr-4">{p.title}</h3>
+                  )}
                   <span className="text-xs text-gray-500 font-mono whitespace-nowrap mt-1">
                     {p.period}
                   </span>

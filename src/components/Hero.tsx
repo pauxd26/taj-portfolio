@@ -15,7 +15,7 @@ export default function Hero() {
 
       <div className="max-w-5xl mx-auto text-center relative z-10">
         <p className="text-[var(--color-accent)] font-mono text-sm tracking-widest uppercase mb-6 animate-fade-in-up opacity-0 animate-delay-100">
-          Senior AI Engineer
+          Founding AI Engineer
         </p>
 
         <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-6 animate-fade-in-up opacity-0 animate-delay-200 tracking-tight">
@@ -25,7 +25,7 @@ export default function Hero() {
 
         <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed mb-4 animate-fade-in-up opacity-0 animate-delay-300">
           Transforming experimental prototypes into production-grade agentic AI
-          systems. 8+ years in backend systems, specializing in Multi-Agent
+          systems. 8+ years in backend systems, 3+ years specializing in Multi-Agent
           Orchestration and Autonomous Reasoners.
         </p>
 

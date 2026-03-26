@@ -7,13 +7,13 @@ export const RESUME_DATA = {
   github: "https://github.com/pauxd26",
 
   summary:
-    "Dedicated AI Engineer with 8+ years of experience in backend systems and 2+ years specializing in Agentic Workflows, Multi-Agent Orchestration, and Autonomous Reasoners. Expert at transforming experimental prototypes into production-grade agentic AI systems using LangGraph, CrewAI, AutoGen, and MCP. Proven track record of solving the Agent Reliability Gap by architecting multi-agent systems with independent Verifier/Judge layers, MCP-based tool integration, and strict Pydantic-based tool-calling schemas. Deeply experienced in Agentic RAG, self-correcting retrieval loops that reduced hallucination rates by 40%. Passionate about bounded autonomy -- systems that reason through uncertainty but operate within deterministic guardrails.",
+    "Dedicated AI Engineer with 8+ years of experience in backend systems and 3+ years specializing in Agentic Workflows, Multi-Agent Orchestration, and Autonomous Reasoners. Expert at transforming experimental prototypes into production-grade agentic AI systems using LangGraph, CrewAI, AutoGen, and MCP. Proven track record of solving the Agent Reliability Gap by architecting multi-agent systems with independent Verifier/Judge layers, MCP-based tool integration, and strict Pydantic-based tool-calling schemas. Deeply experienced in Agentic RAG, self-correcting retrieval loops that reduced hallucination rates by 40%. Passionate about bounded autonomy -- systems that reason through uncertainty but operate within deterministic guardrails like LangSmith, OpenTelemetry, and MCP server observability. Industries: LegalTech & Regulatory AI, Enterprise AI & Cloud Infrastructure, Digital Marketing & AdTech.",
 
   skills: {
     ai_agents: [
       "LangChain", "LangGraph", "CrewAI", "AutoGen", "AutoGPT", "MCP",
       "MCP Servers & Clients", "Agentic AI", "Multi-Agent Orchestration",
-      "RAG", "Agentic RAG", "LangSmith", "Prompt Engineering",
+      "RAG", "Agentic RAG", "GraphRAG", "LangSmith", "Prompt Engineering",
     ],
     ml_deep_learning: [
       "PyTorch", "TensorFlow", "Keras", "scikit-learn", "spaCy", "NLP",
@@ -21,11 +21,11 @@ export const RESUME_DATA = {
     ],
     languages_frameworks: [
       "Python", "Golang", "JavaScript", "TypeScript", "Django", "FastAPI",
-      "Flask", "Node.js", "React", "Angular",
+      "Flask", "Node.js", "Next.js", "React", "Angular",
     ],
     data_infrastructure: [
       "Snowflake", "Databricks", "Spark", "Kafka", "Airflow", "BigQuery",
-      "Neo4j", "Redis", "Pinecone", "Elasticsearch",
+      "Neo4j", "Redis", "Pinecone", "Elasticsearch", "ChromaDB", "PostgreSQL",
     ],
     cloud_devops: [
       "AWS", "Azure", "GCP", "Kubernetes", "Docker", "Terraform",
@@ -34,6 +34,20 @@ export const RESUME_DATA = {
   },
 
   experience: [
+    {
+      company: "Lextar AI Legal Solutions, Inc.",
+      role: "Founding AI Engineer",
+      location: "Remote",
+      period: "Jan 2026 - Present",
+      highlights: [
+        "Architected a full-stack enterprise legal AI platform for Canadian and US immigration law using FastAPI, Next.js, PostgreSQL, ChromaDB for hybrid RAG.",
+        "Engineered an 11-step lawyer-faithful reasoning pipeline integrating DeepSeek LLM with strict grounding verification.",
+        "Built hybrid GraphRAG retrieval system with 1,300+ legal nodes, 445 relationships across 6,200+ ingested chunks.",
+        "Implemented multi-tenant SaaS with Clerk auth, RBAC, Stripe checkout, and real-time streaming analysis workspace.",
+        "Designed superadmin dashboard with platform-wide analytics, user management, and reasoning unit consumption monitoring.",
+        "Implemented strict legal output governance with grounding verification and confidence-weighted scoring.",
+      ],
+    },
     {
       company: "Hewlett Packard Enterprise",
       role: "Senior AI Engineer | Agentic AI Engineer",

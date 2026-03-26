@@ -4,6 +4,28 @@ import { useRef, useEffect, useState } from "react";
 
 const jobs = [
   {
+    company: "Lextar AI Legal Solutions, Inc.",
+    role: "Founding AI Engineer",
+    location: "Remote",
+    period: "Jan 2026 - Present",
+    projects: [
+      {
+        name: "Lextar AI - Governance-Grade Legal Reasoning Platform",
+        url: "https://www.lextarai.com/",
+        period: "2026-Present",
+        highlights: [
+          "Architected a full-stack enterprise legal AI platform for Canadian and US immigration law using FastAPI, Next.js, PostgreSQL, SQLAlchemy, and ChromaDB for hybrid RAG.",
+          "Engineered an 11-step lawyer-faithful reasoning pipeline integrating DeepSeek LLM, hierarchical issue framing, conflict resolution, and strict grounding verification.",
+          "Built a hybrid GraphRAG retrieval system combining ChromaDB vector search with an in-memory knowledge graph (1,300+ legal nodes, 445 relationships) across 6,200+ ingested chunks.",
+          "Implemented multi-tenant SaaS with Clerk authentication, role-based access control, Stripe checkout, PDF invoices, and automated SMTP email receipts.",
+          "Designed superadmin dashboard with platform-wide analytics, user management, per-organization usage tracking, and real-time reasoning unit consumption monitoring.",
+          "Built real-time streaming legal analysis workspace with SSE, live reasoning trace visualization, and role-specific output formatting.",
+          "Implemented strict legal output governance including grounding verification, cross-reference resolution, and confidence-weighted scoring.",
+        ],
+      },
+    ],
+  },
+  {
     company: "Hewlett Packard Enterprise",
     role: "Senior AI Engineer | Agentic AI Engineer",
     location: "Spring, Texas (Remote)",
@@ -11,6 +33,7 @@ const jobs = [
     projects: [
       {
         name: "HPE Private Cloud AI - NVIDIA AI Computing",
+        url: "https://www.hpe.com/us/en/private-cloud-ai.html",
         period: "2024-2025",
         highlights: [
           "Designed multi-agent Plan-and-Execute architecture using LangGraph, reducing infinite loop failures by 35%.",
@@ -20,10 +43,13 @@ const jobs = [
           "Built observability dashboards using LangSmith and Arize Phoenix, resolving 10s+ latency bottlenecks.",
           "Architected LLM evaluation framework using DeepEval across 5,000+ test cases.",
           "Reduced costs by 52% and p95 latency by 300ms through semantic caching with Redis.",
+          "Developed Shadow Deployment pipeline for prompt engineering A/B tests on live traffic with 0% user impact.",
+          "Designed multi-agent collaboration framework with Planner, Executor, and Critic agents via structured message-passing.",
         ],
       },
       {
         name: "HPE Ezmeral Unified Analytics & Data Fabric",
+        url: "https://developer.hpe.com/platform/hpe-ezmeral/home/",
         period: "2023-2024",
         highlights: [
           "Eliminated catastrophic forgetting in Llama 2 by mixing 15% pre-training replay data.",
@@ -35,6 +61,7 @@ const jobs = [
       },
       {
         name: "HPE GreenLake Cloud & OpsRamp AIOps",
+        url: "https://www.hpe.com/us/en/greenlake.html",
         period: "2023-2025",
         highlights: [
           "Led migration from monolithic Django to Microservices with Docker and Kubernetes.",
@@ -42,6 +69,8 @@ const jobs = [
           "Built MCP-compliant tool registry enabling dynamic tool discovery at runtime.",
           "Architected Self-Correction loop for SQL agent, reducing syntax errors by 50%.",
           "Built NER pipeline with Keras Bi-LSTM achieving 25% F1-score improvement.",
+          "Resolved critical GIL bottlenecks by refactoring to Python Multiprocessing and Celery/Redis worker cluster.",
+          "Engineered custom spaCy and Transformer models integrated with Fabric Lakehouse using lazy-loading across Spark clusters.",
         ],
       },
     ],
@@ -54,6 +83,7 @@ const jobs = [
     projects: [
       {
         name: "Adobe Experience Platform Pipeline & Data Lake",
+        url: "https://experience.adobe.com/",
         period: "2019-2022",
         highlights: [
           "Architected ETL pipeline processing 5TB+ multi-modal data using Spark.",
@@ -65,6 +95,7 @@ const jobs = [
       },
       {
         name: "Adobe Sensei ML Framework & Content Intelligence",
+        url: "https://experience.adobe.com/",
         period: "2020-2023",
         highlights: [
           "Deployed Semantic Data Guard monitoring data drift with 15% deviation alerting.",
@@ -72,6 +103,8 @@ const jobs = [
           "Reduced inference latency by 65% via model distillation on NVIDIA A100 GPUs.",
           "Built synthetic data engine using SDV and GPT-3.5, improving minority tasks by 18%.",
           "Engineered Fail-Soft orchestration saving $15k/month in compute costs.",
+          "Solved multi-modal cold start problem with tiered embedding cache (Redis + Elasticsearch), reducing first-response time from 2.4s to 400ms.",
+          "Built programmatic A/B testing framework promoting models based on Ground Truth alignment with statistical significance tests.",
         ],
       },
     ],
@@ -121,7 +154,14 @@ function JobCard({ job, index }: { job: typeof jobs[number]; index: number }) {
           <div key={proj.name} className="glass-card rounded-xl p-5">
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
               <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] -ml-[2.05rem] shrink-0 shadow-lg shadow-[var(--color-primary)]/30" />
-              <h4 className="text-base font-semibold text-white">{proj.name}</h4>
+              {proj.url ? (
+                <a href={proj.url} target="_blank" rel="noopener noreferrer" className="text-base font-semibold text-white hover:text-[var(--color-primary)] transition-colors flex items-center gap-1.5">
+                  {proj.name}
+                  <svg className="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                </a>
+              ) : (
+                <h4 className="text-base font-semibold text-white">{proj.name}</h4>
+              )}
               <span className="text-xs text-gray-500 font-mono">{proj.period}</span>
             </div>
             <ul className="space-y-2">
