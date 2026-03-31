@@ -2,7 +2,23 @@
 
 import { useRef, useEffect, useState } from "react";
 
-const jobs = [
+interface Project {
+  name: string;
+  url?: string;
+  videoUrl?: string;
+  period: string;
+  highlights: string[];
+}
+
+interface Job {
+  company: string;
+  role: string;
+  location: string;
+  period: string;
+  projects: Project[];
+}
+
+const jobs: Job[] = [
   {
     company: "Lextar AI Legal Solutions, Inc.",
     role: "Founding AI Engineer",
@@ -12,6 +28,7 @@ const jobs = [
       {
         name: "Lextar AI - Governance-Grade Legal Reasoning Platform",
         url: "https://www.lextarai.com/",
+        videoUrl: "https://github.com/pauxd26/taj-portfolio/releases/download/v1.0.0/lextar-demo.mp4",
         period: "2026-Present",
         highlights: [
           "Architected a full-stack enterprise legal AI platform for Canadian and US immigration law using FastAPI, Next.js, PostgreSQL, SQLAlchemy, and ChromaDB for hybrid RAG.",
@@ -126,7 +143,7 @@ function useInView(ref: React.RefObject<HTMLElement | null>) {
   return visible;
 }
 
-function JobCard({ job, index }: { job: typeof jobs[number]; index: number }) {
+function JobCard({ job, index }: { job: Job; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const visible = useInView(ref);
 
@@ -172,6 +189,20 @@ function JobCard({ job, index }: { job: typeof jobs[number]; index: number }) {
                 </li>
               ))}
             </ul>
+
+            {proj.videoUrl && (
+              <div className="mt-5 rounded-xl overflow-hidden border border-white/10">
+                <p className="text-xs text-gray-500 font-mono mb-2 px-1">Product Demo</p>
+                <video
+                  src={proj.videoUrl}
+                  controls
+                  preload="metadata"
+                  className="w-full rounded-xl"
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            )}
           </div>
         ))}
       </div>
