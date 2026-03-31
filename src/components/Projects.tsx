@@ -10,6 +10,7 @@ const projects = [
       "Full-stack legal AI SaaS platform with hybrid GraphRAG retrieval (1,300+ node knowledge graph + vector search), 11-step structured legal reasoning pipeline, multi-tenant RBAC, real-time streaming analysis workspace, and governance-grade output verification for Canadian and US immigration law.",
     tags: ["FastAPI", "Next.js", "PostgreSQL", "ChromaDB", "DeepSeek", "GraphRAG", "Clerk", "Stripe", "SSE"],
     url: "https://www.lextarai.com/",
+    videoUrl: "https://github.com/pauxd26/taj-portfolio/releases/download/v1.0.0/lextar-demo.mp4",
     color: "from-amber-500/20 to-yellow-500/20",
   },
   {
@@ -86,6 +87,8 @@ export default function Projects() {
             <div
               key={p.title}
               className={`glass-card glow rounded-2xl p-6 transition-all duration-500 hover:-translate-y-1 group ${
+                p.videoUrl ? "md:col-span-2" : ""
+              } ${
                 visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
               style={{ transitionDelay: `${i * 100}ms` }}
@@ -93,33 +96,49 @@ export default function Projects() {
               {/* Gradient accent */}
               <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${p.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
-              <div className="relative">
-                <div className="flex items-start justify-between mb-3">
-                  {p.url ? (
-                    <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-white pr-4 hover:text-[var(--color-primary)] transition-colors flex items-center gap-1.5">
-                      {p.title}
-                      <svg className="w-3.5 h-3.5 opacity-50 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                    </a>
-                  ) : (
-                    <h3 className="text-lg font-semibold text-white pr-4">{p.title}</h3>
-                  )}
-                  <span className="text-xs text-gray-500 font-mono whitespace-nowrap mt-1">
-                    {p.period}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-400 leading-relaxed mb-5">
-                  {p.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {p.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="tag-pill px-2.5 py-1 text-xs bg-[var(--color-primary)]/10 text-[var(--color-primary-light)] rounded-md border border-[var(--color-primary)]/15"
-                    >
-                      {t}
+              <div className={`relative ${p.videoUrl ? "grid grid-cols-1 md:grid-cols-2 gap-6" : ""}`}>
+                <div>
+                  <div className="flex items-start justify-between mb-3">
+                    {p.url ? (
+                      <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-white pr-4 hover:text-[var(--color-primary)] transition-colors flex items-center gap-1.5">
+                        {p.title}
+                        <svg className="w-3.5 h-3.5 opacity-50 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                      </a>
+                    ) : (
+                      <h3 className="text-lg font-semibold text-white pr-4">{p.title}</h3>
+                    )}
+                    <span className="text-xs text-gray-500 font-mono whitespace-nowrap mt-1">
+                      {p.period}
                     </span>
-                  ))}
+                  </div>
+                  <p className="text-sm text-gray-400 leading-relaxed mb-5">
+                    {p.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {p.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="tag-pill px-2.5 py-1 text-xs bg-[var(--color-primary)]/10 text-[var(--color-primary-light)] rounded-md border border-[var(--color-primary)]/15"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                 </div>
+
+                {p.videoUrl && (
+                  <div className="rounded-xl overflow-hidden border border-white/10">
+                    <video
+                      src={p.videoUrl}
+                      controls
+                      preload="metadata"
+                      className="w-full h-full object-cover rounded-xl"
+                      poster=""
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                )}
               </div>
             </div>
           ))}
